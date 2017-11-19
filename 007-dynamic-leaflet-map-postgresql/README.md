@@ -4,3 +4,16 @@ A dynamic map that shows when trash cans are full helps us to optimize our resou
 
 
 https://github.com/fissehab/monitoring_trash_cans_with_shiny_and_leaflet
+
+
+## QUESTIONs
+
+* Who stops the database data generation?
+
+* How is the time zone set up?
+
+
+* How is the interval set?
+
+* How are the sensors data coordinated? Are they random?
+
