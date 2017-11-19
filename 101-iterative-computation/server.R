@@ -6,13 +6,13 @@ shinyServer(function(input, output, session) {
   
   # Track the start and elapsed time
   startTime <- Sys.time()  
+  
   output$elapsed <- renderText({
     vals$x
     round(Sys.time() - startTime)
   })
   
-  # Create a reactiveValues object where we can track some extra elements
-  # reactively.
+  # Create a reactiveValues object where we can track some extra elements reactively.
   vals <- reactiveValues(x = 0, counter = 0)
   
   # Update the percentage complete
@@ -22,7 +22,7 @@ shinyServer(function(input, output, session) {
   
   # Show the value of x
   output$x <- renderText({
-    round(vals$x,2)
+    round(vals$x, 2)
   })
   
   # Do the actual computation here.
