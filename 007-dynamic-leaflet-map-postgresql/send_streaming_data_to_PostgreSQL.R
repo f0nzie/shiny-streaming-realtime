@@ -65,7 +65,7 @@ print("Let's assume two sensors not sending data. 13 sensors will send data ever
 i = 0
 while(i < cycles){
   
-  temp = matrix(c(runif(13, min=0, max=0.03), rep(NA, 2)), ncol=15)
+  temp = sample(matrix(c(runif(13, min=0, max=0.03), rep(NA, 2)), ncol=15), 15)
   status = rbind(status,temp)
   status = colSums(status)
   status[status>=1]=1
@@ -96,7 +96,7 @@ print("Now, let's assume five sensors are not sending data. 10 sensors will send
 i = 0
 while(i < cycles){
   
-  temp = matrix(c(runif(10, min=0, max=0.03), rep(NA, 5)), ncol=15)
+  temp = sample(matrix(c(runif(10, min=0, max=0.03), rep(NA, 5)), ncol=15), 15)
   status = rbind(status,temp)
   status = colSums(status)
   status[status >= 1] = 1

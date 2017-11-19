@@ -11,52 +11,51 @@ trashicons=function(condition){  # a function to make our own icons based on the
     iconAnchorX = 0, iconAnchorY = 0
   )}
 
-
-localdb <- src_postgres(dbname = '',    # connect to an existing postgresql database
+# connect to an existing postgresql database
+localdb <- src_postgres(dbname = '',    
                         host = 'localhost',
                         port = 5432,
                         user = 'postgres',
                         password = 'postgrestutorial')
 
-
-data_at_start=tbl(localdb,"trashcan_sensor_data") %>% # connect to tables within that database
+# connect to tables within that database
+data_at_start=tbl(localdb, "trashcan_sensor_data") %>% 
   collect() # get the data
 
 # get the most recent row for each sensor
-data_at_start=arrange(data_at_start,-row_number())
-data_at_start=distinct(data_at_start,sensorID,.keep_all = TRUE)
+data_at_start = arrange(data_at_start,-row_number())
+data_at_start = distinct(data_at_start,sensorID,.keep_all = TRUE)
 
 # If the cans are 95% full, change the icons to warning icon
 # If a sensor for any can is not sending data, change the icon to failed icon
 # If it has been more than 10 seconds since any sensor sent data, change the icon to failed
-data_at_start$condition=ifelse(data_at_start$status>0.95,"warning","ok")
-data_at_start$condition[is.na(data_at_start$status)]="failed"
-data_at_start$condition[is.null(data_at_start$status)]="failed"
-data_at_start$condition=ifelse((data_at_start$timestamp+10)< Sys.time(),"failed",data_at_start$condition)
+data_at_start$condition = ifelse(data_at_start$status > 0.95, "warning", "ok")
+data_at_start$condition[is.na(data_at_start$status)] = "failed"
+data_at_start$condition[is.null(data_at_start$status)] = "failed"
+data_at_start$condition = ifelse((data_at_start$timestamp+10) < Sys.time(), 
+                                 "failed", data_at_start$condition)
 
-
-testfunction <- function(){  #  function whose values over time will be tested for equality;
+# function whose values over time will be tested for equality;
+testfunction <- function(){  
   # inequality indicates that the underlying value has changed and 
   # needs to be invalidated and re-read using ReadAllSensorData
-  
-  query="select max(timestamp) as max from trashcan_sensor_data"
-  df=tbl(localdb,sql(query))%>%collect()
+  query = "select max(timestamp) as max from trashcan_sensor_data"
+  df = tbl(localdb,sql(query)) %>% collect()
   df$max
 }
 
-ReadAllSensorData =function(){ # A function that gets data from the database
+# A function that gets data from the database
+ReadAllSensorData =function(){ 
   # based on the testfunction above
-  query="SELECT * FROM trashcan_sensor_data"
-  temp=tbl(localdb,sql(query))%>%collect(n = Inf)
+  query = "SELECT * FROM trashcan_sensor_data"
+  temp = tbl(localdb, sql(query)) %>% collect(n = Inf)
   temp
 }
 
 
 shinyServer(function(input, output,session) {
-  
   sensorData <- reactivePoll(100, session,testfunction, ReadAllSensorData)    
   # 100: number of milliseconds to wait between calls to testfunction
-  
   
   output$leaflet_map <- renderLeaflet({
     dat=data_at_start
