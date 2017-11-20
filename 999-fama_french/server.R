@@ -24,7 +24,7 @@ library(magrittr)
   #     OVERHEAD     #
   ####################
 
-  body(getReturns)[[2]] <- substitute(startURL <- "https://ichart.finance.yahoo.com/table.csv?s=") # BUG, yahoo.finance API changed to use https -> need to change underlying library
+  body(getReturns)[[2]] <- substitute(startURL <- "http://eodhistoricaldata.com/OeAFFmMliFG5orCUuwAKQ8l4WWFQ67YX/table.csv?s=") # BUG, yahoo.finance API changed to use https -> need to change underlying library
 
   truncate <- function(df, x, y) {
     if (!is(df[,1], "POSIXct")) { # if annualized, convert from numeric to POSIXct
