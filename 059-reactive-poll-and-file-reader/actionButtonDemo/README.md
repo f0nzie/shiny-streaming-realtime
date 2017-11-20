@@ -1,0 +1,1 @@
+Action buttons should always be used with one of eventReactive() or observeEvent(). See the article Using Action Buttons for details.
