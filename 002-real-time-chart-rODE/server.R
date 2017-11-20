@@ -24,6 +24,9 @@ shinyServer(function(input, output, session) {
     newvalue()[[1]]
   })
   
+  
+  
+  
   output$hc <- renderHighchart({
     
     hc <- data.frame(time = datetime_to_timestamp(Sys.time()), value = 0) %>%
