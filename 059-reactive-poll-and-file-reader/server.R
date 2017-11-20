@@ -7,7 +7,7 @@ function(input, output, session) {
 
 
   # ============================================================
-  # This part of the code writes to the log file every second.
+  # This part of the code writes to the log file every second (1000 ms).
   # Writing to the file could be done by an external process.
   # In this example, we'll write to the file from inside the app.
   logwriter <- observe({
