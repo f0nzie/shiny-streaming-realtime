@@ -1,6 +1,7 @@
 # invalidateLaterApp
 
 ui <- fluidPage(
+  titlePanel("invalidateLater example"),
   sliderInput("n", "Number of observations", 2, 1000, 500),
   plotOutput("plot"),
   textOutput("sd"),

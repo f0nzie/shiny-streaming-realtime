@@ -8,6 +8,7 @@ library(shiny)
 ## Only run examples in interactive R sessions
   
 ui <- fluidPage(
+  titlePanel("reactiveVal example"),
   actionButton("minus", "-1"),
   actionButton("plus", "+1"),
   br(),

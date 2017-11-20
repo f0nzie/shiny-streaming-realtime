@@ -2,6 +2,7 @@
 # press a button to change the plot
   
   ui <- fluidPage(
+    titlePanel("actionButton using isolate()"),
     sliderInput("obs", "Number of observations", 0, 1000, 500),
     actionButton("goButton", "Go!"),
     plotOutput("distPlot"),
