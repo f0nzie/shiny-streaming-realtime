@@ -1,5 +1,7 @@
 ---
 output: html_notebook
+editor_options: 
+  chunk_output_type: inline
 ---
 # Using PostgreSQL and shiny with a dynamic leaflet map: monitoring trash cans
 
